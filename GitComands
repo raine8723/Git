@@ -1,12 +1,25 @@
 
 
 ########################################
-############ Basic Comands #############
+############ Setup #############
 ########################################
 
 
 #git version
 git --version
+
+#config user name and email
+git config --global user.name "raine2703"
+git config --global user.email "raine2703@gmail.com"  
+
+#initialize empty git repository
+git init
+
+
+
+########################################
+############ Basic Comands #############
+########################################
 
 #clone repository
 git clone 
@@ -20,16 +33,6 @@ git pull https://github.com/raine2703/test.git
 git remote add origin https://github.com/raine2703/test.git
 git push -u origin main
 
-#list files
-dir
-
-#initialize empty git repository
-git init
-
-#config user name and email
-git config --global user.name "raine2703"
-git config --global user.email "raine2703@gmail.com"  
-
 #restore changes before git add
 git restore filename or *
 
@@ -40,16 +43,19 @@ git restore filename or *
 
 #unstagig file. Revert to original changes. Then git add .
 ##Reset then Restore seems to be working better!
-
+----------------------------------------------------------
 1. git add .
 2. git checkout main (if needed)
 3. git rm --cached f2.txt (file not tracked anymore)
 4. revert the changes to exact previous state
 5. git add .
 6. git status "working tree clear..."
+----------------------------------------------------------
+
 
 
 # if change done to a file, its need to be added to staging area, then commit to git repository 
+----------------------------------------------------------------------------------------------
 git add * 
 git add filename.txt
 git add *.txt
@@ -60,7 +66,13 @@ git status
 #add files to git repository
 git commit -m "This is the initial commit"  s
 
+
+------------------------------------------------------------
+
+
+
 #git changes done, commits with unique ID
+-----------------------------------------
 git log
 
 #switch to previous version
@@ -68,6 +80,9 @@ git checkout 7eea517c475bc9d45bdd8aed0e084ce3d20a2e56
 
 #list all previous versions, also the ones tha in "future".
 git log --all
+------------------------------------------------------------
+
+
 
 
 
@@ -77,18 +92,20 @@ git log --all
 
 
 #normaly you dont want to make change to main branch (production code). You create a new branch for developers.
-After new brunch has been developed and tested you merge with Main branch.
+Or Production - Release - Feature branch. Several stages of development.
+After new brunch has been developed and tested you merge with Main branch. Delete unneded branch.
 
 #Create New branch (add to stagig, then commit, then merge.)
 git checkout -b featurea
 git status shows you are on other branch
 
-
 #switch between branches
-git checkout main/featurea
+git checkout main
 
 #merge 2 branches togeather (HEAD -> main, featurea). One branch can be merged to another.
-git merge featurea/main
+git merge featurea/
+
+
 
 
 
@@ -102,15 +119,13 @@ git push -u origin main
 #to push over what i have locally
 git push -u origin main -f
 
-
-git remote rm origin
-
-
-#after remote origin is added, you can simply push to remote repository when needed. 
-## check that git log shows (HEAD -> main, origin/main) !
+#update local repository from remote
+git pull 
+or
+git pull https://github.com/raine2703/test.git
 
 
-
+#Problems start when you edit file locally and in repository. How to merge then?
 
 
 
