@@ -12,7 +12,9 @@ git --version
 git clone 
 
 #update local repository from remote
-git pull
+git pull 
+or
+git pull https://github.com/raine2703/test.git
 
 #git push to remote 
 git remote add origin https://github.com/raine2703/test.git
@@ -96,6 +98,10 @@ git merge featurea/main
 
 git remote add origin https://github.com/raine2703/test.git
 git push -u origin main
+
+#to push over what i have locally
+git push -u origin main -f
+
 
 git remote rm origin
 
