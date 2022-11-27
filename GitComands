@@ -67,13 +67,13 @@ git log --all
 #normaly you dont want to make change to main branch (production code). You create a new branch for developers.
 After new brunch has been developed and tested you merge with Main branch.
 
-#Create New branch (add to stagig, then commit, then merge.)
+#Create New branch named featurea (add to stagig, then commit, then merge.)
 git checkout -b featurea
 git status shows you are on other branch
 
 
 #switch between branches
-git checkout main/featurea
+git checkout featurea
 
 #merge 2 branches togeather (HEAD -> main, featurea). One branch can be merged to another.
 git merge featurea/main
@@ -87,6 +87,8 @@ git merge featurea/main
 git remote add origin https://github.com/raine2703/test.git
 git push -u origin main
 
+#after remote origin is added, you can simply push to remote repository when needed. 
+## check that git log shows (HEAD -> main, origin/main) !
 
 
 
