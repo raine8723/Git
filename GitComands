@@ -1,0 +1,61 @@
+
+############ Basic Comands #############
+
+#git version
+git --version
+
+#list files
+dir
+
+#initialize empty git repositoryhttps://github.com/raine2703/Git
+git init
+
+#config user name and email
+git config --global user.name "raine2703"
+git config --global user.email "raine8723@gmail.com"  
+
+#restore changes before git add
+git restore filename or *
+
+#restore changes after git add 
+git reset filename or *
+then
+git restore filename or *
+
+# if change done to a file, its need to be added to staging area, then commit to git repository 
+git add * 
+git add filename.txt
+git add *.txt
+
+#curent status of working directory
+git status
+
+#add files to git repository
+git commit -m "This is the initial commit"  s
+
+#git changes done, commits with unique ID
+git log
+
+#switch to previous version
+git checkout 7eea517c475bc9d45bdd8aed0e084ce3d20a2e56
+
+#list all previous versions, also the ones tha in "future".
+git log --all
+
+
+
+#unstagig file. Add changes to a file to staging area, but decite to cancel them after git add.
+##Reset then Restore seems to be working better!
+
+1. git add .
+2. git checkout main (if needed)
+3. git rm --cached f2.txt (file not tracked anymore)
+4. revert the changes to exact previous state
+5. git add .
+6. git status "working tree clear..."
+
+
+############ Branches ###############
+
+
+
