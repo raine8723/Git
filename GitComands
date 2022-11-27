@@ -1,5 +1,9 @@
 
+
+########################################
 ############ Basic Comands #############
+########################################
+
 
 #git version
 git --version
@@ -21,6 +25,17 @@ git restore filename or *
 git reset filename or *
 then
 git restore filename or *
+
+#unstagig file. Revert to original changes. Then git add .
+##Reset then Restore seems to be working better!
+
+1. git add .
+2. git checkout main (if needed)
+3. git rm --cached f2.txt (file not tracked anymore)
+4. revert the changes to exact previous state
+5. git add .
+6. git status "working tree clear..."
+
 
 # if change done to a file, its need to be added to staging area, then commit to git repository 
 git add * 
@@ -44,18 +59,42 @@ git log --all
 
 
 
-#unstagig file. Add changes to a file to staging area, but decite to cancel them after git add.
-##Reset then Restore seems to be working better!
-
-1. git add .
-2. git checkout main (if needed)
-3. git rm --cached f2.txt (file not tracked anymore)
-4. revert the changes to exact previous state
-5. git add .
-6. git status "working tree clear..."
-
-
+#####################################
 ############ Branches ###############
+#####################################
+
+
+#normaly you dont want to make change to main branch (production code). You create a new branch for developers.
+After new brunch has been developed and tested you merge with Main branch.
+
+#Create New branch (add to stagig, then commit, then merge.)
+git checkout -b featurea
+git status shows you are on other branch
+
+
+#switch between branches
+git checkout main/featurea
+
+#merge 2 branches togeather (HEAD -> main, featurea). One branch can be merged to another.
+git merge featurea/main
+
+
+
+#############################################
+######### Using Remote Repository ###########
+#############################################
+
+git remote add origin https://github.com/raine2703/test.git
+git push -u origin main
+
+
+
+
+
+
+
+
+
 
 
 
