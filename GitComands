@@ -7,7 +7,7 @@ git --version
 #list files
 dir
 
-#initialize empty git repositoryhttps://github.com/raine2703/Git
+#initialize empty git repository
 git init
 
 #config user name and email
