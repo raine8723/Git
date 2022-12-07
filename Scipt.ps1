@@ -230,7 +230,7 @@ git cat-file -p HEAD
 #I can create a tag at the current location
 git tag v1.0.0
 gitgraph
-git tag v0.9.1 <previous commit>
+git tag v0.5.1 46d8095
 gitgraph
 git tag --list
 
@@ -239,7 +239,7 @@ git show v1.0.0
 #We just see the commit object
 
 #These are lightweight tags. There is also an annotated type which is a full object with its own message
-git tag -a v0.0.1 <commit hash> -m "First version"
+git tag -a v0.0.1 46d8095 -m "First version"
 git show v0.0.1
 #we see the TAG information AND then the commit it references
 git cat-file -t v0.0.1
@@ -249,19 +249,12 @@ git cat-file -t v1.0.0
 git push --tag
 
 
-#WB12
-#Remote Origin Part 1
-cd $devopsmc
-git remote -v
-
-cd $scratch\gitplay1
-git remote -v
-
 #Create an empty repo on GitHub under your account called gitplay1
 #It has help about next steps
 
 #Add it as the remote origin. Origin is just a name but common standard
-git remote add origin https://github.com/johnthebrit/gitplay1
+git remote add origin https://github.com/raine2703/gitplay.git
+git remote remove origin
 #git branch -M main      # RENAMES the branch from master to main
 
 git remote -v
