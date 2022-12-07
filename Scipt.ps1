@@ -1,6 +1,3 @@
-$scratch = 'D:\scratch'
-$devopsmc = 'C:\Users\john\OneDrive\projects\GIT\DevOpsMC'
-
 #Check version
 git --version
 
@@ -29,8 +26,8 @@ git remote show origin
 #Can replace --global with --local to set values for a specific repo if required
 git config --global --list    #care about username and email
 
-git config --global user.name "John Savill"
-git config --global user.email john@savilltech.com
+git config --global user.name "raine2703"
+git config --global user.email raine2703@gmial.com
 
 git config --list --show-origin      #see where coming from :q
 git config --list
@@ -94,8 +91,6 @@ git cat-file -p <new tree pointed from new commit>
 
 #I'm going to go ahead and create a function for my nice git log command. This may vary based on your CLI
 function gitgraph {git log --oneline --graph --decorate --all}
-#Could add this to your profile
-code $profile
 
 #Note when you create a new repo you can override the default initial branch
 git init --initial-branch=main
@@ -160,12 +155,13 @@ git commit -m "removed testfile4.txt"
 
 
 #Resetting WB09
-#Remove all staged content. This is actually using --mixed which is default. More later
-git reset
+#Remove all staged content. After gitt add . is done.
 #It does this by setting staged to match the last commit
 #It does NOT change your working dir
-git reset --hard
+git reset
+
 #Would also change your working directory to match!
+git reset --hard 
 
 #Can reset individual files
 code testfile.txt
@@ -175,13 +171,14 @@ git status
 git restore --staged testfile.txt
 git status
 #Restore working from stage
+#Status here is before git add . is done. 
+#any modifications before add can be cancelled with this comand.
 git restore testfile.txt
 git status
 code testfile.txt
-#Restore to stage and working from last commit
+#Restore to stage and working from last commit. Reset to original with one comand. After add . is done.
 git restore --staged --worktree testfile.txt
-#Full version but not required is to say from where by this is default anyway but could specify different
-git restore --source=HEAD --staged --worktree testfile.txt
+
 
 
 #WB10
