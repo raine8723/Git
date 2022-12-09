@@ -30,18 +30,17 @@ git remote show origin
 
 #Pull
 git pull https://github.com/raine2703/test3.git
-#If remote added, simply
+#If remote added, simply?
 git pull
 
 #Push 
 git push -u origin main
-#If remote added, simply
+#If remote added, simply?
 git push
 -------------------------------------------------------------------------------------------
-
-
-
-
+#Function for nice git log command in Powershell
+function gitgraph {git log --oneline --graph --decorate --all}
+-------------------------------------------------------------------------------------------
 
 
 #Pay attention to the current .git folder content, especially the objects folder
@@ -89,9 +88,6 @@ git cat-file -p <new commit>  #Note it references the parent commit hash, again,
 git cat-file -p <new tree pointed from new commit>
 #WOW, two file names. SAME BLOB as had same content
 #Our main reference also now points to the new commit, it just moved along
-
-#I'm going to go ahead and create a function for my nice git log command. This may vary based on your CLI
-function gitgraph {git log --oneline --graph --decorate --all}
 
 #Note when you create a new repo you can override the default initial branch
 git init --initial-branch=main
