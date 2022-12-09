@@ -44,16 +44,14 @@ function gitgraph {git log --oneline --graph --decorate --all}
 #-------------------------------------------------------------------------------------------
 
 
-
-
-
 #-------------------------------------------------------------------------------------------
 #Pay attention to the current .git folder content, especially the objects folder
+code textfile.txt
 git add .
 #Notice we now have a new object in a 2 character folder name with 38 character name, i.e. 40 character hash
 git status
 git diff --cached #Difference between staged and what is commited
-git commit -m "Initial testfile.txt commit"
+git commit -m "Initial textfile.txt commit"
 #We have two new objects created! The path and the commit itself
 
 #NOTE Could combine the add and commit
@@ -69,67 +67,27 @@ git log
 
 
 #-------------------------------------------------------------------------------------------
-#look at the type
-git cat-file -t <first 7 of the hash shown for the commit>
-#look at the content
-git cat-file -p <first 7 of the hash shown for the commit>
-
-#look at the type
-git cat-file -t <first 5 (to show just needs to be unique) of the hash shown for the tree in commit file>
-#look at the content. Notice here it points the blob we saw created before and now has a file name
-git cat-file -p <first 5 of the hash shown for the tree in commit file>
-
-#look at the type
-git cat-file -t <first n of the hash shown for the blob in tree file>
-#look at the content. Notice here it points the blob we saw created before and now has a file name
-git cat-file -p <first 5 of the hash shown for the blob in tree file>
-#-------------------------------------------------------------------------------------------
-
-
-
-
 #Lets prove a point about it only storing unique content
-Copy-Item .\testfile.txt .\testfile2.txt
+Copy-Item .\textfile.txt .\textfile2.txt
 git add .
 #what new object do we have? Nothing.
 git status
-git commit -m "testfile2.txt added"
+git commit -m "textfile2.txt added"
 #We have new files. Look again
-
-git log --oneline --graph --decorate --all   #I will be using this a lot
-git cat-file -p <new commit>  #Note it references the parent commit hash, again, can't change history as hash would not match
-git cat-file -p <new tree pointed from new commit>
-#WOW, two file names. SAME BLOB as had same content
-#Our main reference also now points to the new commit, it just moved along
-
-#Note when you create a new repo you can override the default initial branch
-git init --initial-branch=main
-git init -b main
-
-
-
-
 
 
 #Modify a file and stage
 #-------------------------------------------------------------------------------------------
-code .\testfile.txt
-git add testfile.txt
+code .\textfile.txt
+git add textfile.txt
 git status
 
-#add a 3rd file but don't stage
-#-------------------------------------------------------------------------------------------
-code .\testfile3.txt
+#add a 3rd file 
+code .\textfile3.txt
+git add textfile3.txt
 git status
-
-git commit -m "updated testfile"
-git status
-#notice our untracked file, i.e. working is not changed but staging is now matching the repo
 
 gitgraph
-
-
-
 
 #We can look at the changes
 #-------------------------------------------------------------------------------------------
@@ -141,38 +99,8 @@ git diff <commit>..<commit> #diff between specific commits
 #-------------------------------------------------------------------------------------------
 
 
-
-
-#WB07
+#Removing content 
 #-------------------------------------------------------------------------------------------
-git status
-git add testfile3.txt
-code testfile.txt #make a change
-git status
-#Between what is staged and the HEAD commit (i.e. the REPO). Could also use --staged which is synonym of --cached
-git diff --cached
-#And what is working to staged
-git diff
-#Between working and the last commit (i.e. head)
-git diff HEAD #basically the sum of the above two
-#-------------------------------------------------------------------------------------------
-
-
-
-
-#To remove content WB08
-#-------------------------------------------------------------------------------------------
-#stage the removal (which will also delete from working)
-git rm <file>
-#to ONLY stage the remove (but not delete from working)
-git rm --cached <file>
-#Could also just delete from working then "add" all changes
-git add .
-
-#Then you need to commit as normal
-git commit -m "Removed file x"
-
-#Example
 code testfile4.txt
 git add testfile4.txt
 git commit -m "adding testfile4.txt"
@@ -183,7 +111,7 @@ ls #its gone from stage AND my working
 git commit -m "removed testfile4.txt"
 
 
-#Resetting WB09
+#Resetting 
 #------------------------------------------------------------------------------------------------------------------
 #Remove all staged content. After gitt add . is done.
 #It does this by setting staged to match the last commit
