@@ -1,3 +1,5 @@
+#John Savill DevOps Master Class - Master Git
+
 #Check version
 git --version
 
@@ -35,13 +37,6 @@ git config --list
 #Many other settings https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup
 git config --global init.defaultBranch main #this is very common to use instead of master
 
-#Git Internals
-#WB5
-#Create a repo again
-New-Item gitplay1 -ItemType "directory"
-Set-Location .\gitplay1
-git init
-code .\testfile.txt
 
 #Pay attention to the current .git folder content, especially the objects folder
 git add .
@@ -285,10 +280,8 @@ git status
 gitgraph
 
 #git pull actually is doing two things
-#To just get remote content
+#To just get remote content, this shows if there has been a change remotely
 git fetch
-#can be explicit
-git fetch origin main
 
 git cat-file -p origin/main
 #Content is now on our box, just not "merged"
@@ -313,24 +306,18 @@ git push
 #git push --tags
 
 
-#.gitignore
-code .gitignore #add *.log /debug/*
-git add .
-git commit -m "added ignore file"
-git push
-git status
-code test.log
-code debug\file.txt
-ls
-git status
-#Nothing to see here!
+
+
+
+
+
 
 
 #Branches!
 #Start fresh
 cd ..
-mkdir JLRepo
-cd JLRepo
+mkdir repo2
+cd repo2
 git init
 git status
 #we see main which remember just references a commit (that won't exist yet)
@@ -441,10 +428,10 @@ git branch branch1
 git switch branch1
 code jl.csv
 git add .
-git commit -m "Added Wonder Woman"
+git commit -m "Added Test4"
 code jl.csv
 git add .
-git commit -m "Added The Flash"
+git commit -m "Added Test5"
 gitgraph
 git status
 #looks familiar and all clean
@@ -512,107 +499,5 @@ git branch --merged
 #git branch -d branch1
 gitgraph
 
-#There is another option. Rebase
-#Lets rewind before the merge by going back 1
-git reset --hard HEAD~1
-gitgraph
 
-#WB19
-#Need to be ON the branch we are performing the action on. We are rebasing branch1
-git switch branch1
-#check its clean
-git status
-#Lets rebase off main
-git rebase main
-#We will get conflicts as it replays each of the changes so each time will need to address and continue
-code jl.csv
-git add jl.csv
-git rebase --continue
-
-gitgraph
-#Cleaner path. Copy next to the rebase whiteboard to compare!
-
-#If now merge would just be a fast-forward since now a straight line from main and NOW 3-way merge
-git status
-git switch main
-git merge branch1
-#Cleanup
-git branch --merged
-git branch -d branch1
-#Note if the remote master has changes you don't have and want to base on can git pull --rebase
-
-
-#Interactive changes
-#Change message of last commit
-git commit --amend
-gitgraph
-#Add new files to staging but don't update the message
-git commit --ament --no-edit
-#These will all mean a new hash as we are changing history and commits are immutable!
-#Can modify in an interactive way
-#Lets go back 3 changes!
-git rebase -i HEAD~3
-#s to squash commits together, d to drop. Many other options
-
-#Protect a branch in github
-
-#Pull Request!
-#WB20
-#Create a new GitHub repo (remember, this could really be any provider)
-git remote add origin https://github.com/johnthebrit/JLRepo.git
-git push -u origin main
-
-#Now as Clark in GitHub create a fork of the repo
-#On clarks machine we could now clone OUR copy
-git clone https://github.com/clarkthesuper/JLRepo.git
-cd JLRepo
-#Look at the remotes
-git remote -v
-#We may want to add Johns as an origin so we could pull down any changes they may have occured
-git remote add upstream https://github.com/johnthebrit/JLRepo.git
-git remote -v
-#Now we have Clarks origin and John's upstream
-#Could pull from John, e.g.
-git fetch upstream
-function gitgraph {git log --oneline --graph --decorate --all}
-gitgraph
-git branch branch1
-git switch branch1
-code jl.csv
-git add .
-git commit -m "Changed who the Flash is"
-
-#Push the branch to our origin
-git push -u origin branch1
-
-#In Clarks repo can change to branch1 and under contribute select "Open pull request"
-#It shows the planned submit, i.e. to main on John's repo
-
-#Now as John will see the pull request and can accept
-#This is a nice status and shows no conflicts and I can accept
-#Note if there were problems I could reject, maybe I had moved main up so Clark would need to rebase and submite again
-#Once confirmed will auto update on Clarks repo that is was merged and closed
-
-#On John machine
-git pull
-gitgraph
-
-#At this point on Clarks repo would pull down from upstream, delete the branch
-gitgraph
-#Knows nothing yet
-git fetch upstream
-git switch main
-#merge in the changes from John's repo (upstream)
-git merge upstream/main
-gitgraph
-#Check we are merged and delete branch1
-git branch --merged
-git branch -d branch1
-git status
-#Update OUR copy of the repo in GitHub by pushing up to it
-git push origin main
-git status
-#Push to our copy the remove of branch1
-git push origin --delete branch1
-
-#annnndddd done!
+#There is another option. Rebase??? Logic not clear.
