@@ -43,6 +43,10 @@ function gitgraph {git log --oneline --graph --decorate --all}
 -------------------------------------------------------------------------------------------
 
 
+
+
+
+-------------------------------------------------------------------------------------------
 #Pay attention to the current .git folder content, especially the objects folder
 git add .
 #Notice we now have a new object in a 2 character folder name with 38 character name, i.e. 40 character hash
@@ -151,6 +155,7 @@ git commit -m "removed testfile4.txt"
 
 
 #Resetting WB09
+------------------------------------------------------------------------------------------------------------------
 #Remove all staged content. After gitt add . is done.
 #It does this by setting staged to match the last commit
 #It does NOT change your working dir
@@ -185,6 +190,7 @@ gitgraph
 #Remember, a branch is just a pointer to a commit which points to its parent
 #We can just move the pointer backwards!
 #Move back 1 but do not change staging or working. Could go back 2, 3 etc ~2, ~3
+------------------------------------------------------------------------------------------------------------------
 git reset HEAD~1 --soft
 gitgraph
 #Notice we have moved back but did not change staging or working
@@ -214,7 +220,8 @@ git status
 
 #The now unreferenced commit will eventually be garbage collected
 
-#TAGS WB11
+#TAGS
+------------------------------------------------------------------------------------------------------------------
 gitgraph
 #remember commits just form a chain as they point to their parent.
 #Notice I'm using HEAD which just points to a reference which points to a commit!
@@ -244,6 +251,7 @@ git push --tag
 
 
 #Create an empty repo on GitHub under your account called gitplay1
+------------------------------------------------------------------------------------------------------------------
 #It has help about next steps
 
 #Add it as the remote origin. Origin is just a name but common standard
@@ -293,6 +301,7 @@ gitgraph
 
 
 #WB14
+------------------------------------------------------------------------------------------------------------------
 #Likewise if we change locally we need to push to the remote
 #As a best practice pull first (fetch and merge) to ensure all clean
 git pull
@@ -306,6 +315,7 @@ git push
 
 
 #Branches!
+-------------------------------------------------------------------------------------------
 #Start fresh
 cd ..
 mkdir repo2
@@ -406,6 +416,7 @@ git push origin --delete branch1
 #You may not want fast-forward. Maybe in the history you want to see it was a separate branch that got merged in
 #I am now going to mess around with time. Remember a branch is nothing more than a pointer to a commit
 #I can go backwards. In this case I'm going to move main BACK to before I made the last two changes
+------------------------------------------------------------------------------------------------------------------
 gitgraph
 #Remember --hard also updates staging and working
 git reset --hard HEAD~2
@@ -446,6 +457,7 @@ gitgraph
 
 #WB18
 #Lets make it more complicated
+------------------------------------------------------------------------------------------------------------------
 #Rewind time again (only doing this so our view is simpler)
 #Note using ^ instead of ~. This is because NOW main has two parents.
 #I'm saying go back to the first parent instead of ~ for number of generations
