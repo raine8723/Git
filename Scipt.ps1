@@ -115,6 +115,7 @@ git commit -m "removed testfile4.txt"
 
 
 #Reset file to original after modifications have been done do it.
+#-------------------------------------------------------------------------------------------
 code textfile.txt
 git status
 git restore textfile.txt
