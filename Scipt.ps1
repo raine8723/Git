@@ -8,18 +8,6 @@ git init
 git help init #to open man pages for detail or
 git init --help #to also open man page
 
-#View the hidden folder
-Get-ChildItem -Force   #notice the .git
-
-#Clone the DevOps Master Class Repo into the current folder
-git clone https://github.com/johnthebrit/DevOpsMC.git .
-#Clone into a new subfolder auto created under current path
-git clone https://github.com/johnthebrit/DevOpsMC.git
-
-#You can clone a local folder the same way!
-git clone gitplay1 gitplay2
-git remote -v    #would show repo1 as the origin as we cloned from it. More on this later
-
 #Looking at remote (again more later on all of this!)
 git remote -v
 git remote show origin
@@ -90,7 +78,6 @@ function gitgraph {git log --oneline --graph --decorate --all}
 #Note when you create a new repo you can override the default initial branch
 git init --initial-branch=main
 git init -b main
-
 
 #WB06
 #Modify a file and stage
@@ -175,7 +162,6 @@ code testfile.txt
 git restore --staged --worktree testfile.txt
 
 
-
 #WB10
 #What if we want to undo a commit?
 #to view all
@@ -213,7 +199,6 @@ git status
 #all clean since --hard reset all levels back
 
 #The now unreferenced commit will eventually be garbage collected
-
 
 #TAGS WB11
 gitgraph
@@ -304,13 +289,6 @@ git status
 gitgraph
 git push
 #git push --tags
-
-
-
-
-
-
-
 
 
 #Branches!
