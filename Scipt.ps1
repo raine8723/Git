@@ -38,6 +38,7 @@ git push -u origin main
 #If remote added, simply?
 git push
 -------------------------------------------------------------------------------------------
+
 #Function for nice git log command in Powershell
 function gitgraph {git log --oneline --graph --decorate --all}
 -------------------------------------------------------------------------------------------
@@ -59,11 +60,15 @@ git commit -m "Initial testfile.txt commit"
 git commit -am "Initial testfile.txt commit"
 #or even
 git commit -a -m "Initial testfile.txt commit"
+-------------------------------------------------------------------------------------------
+
 
 #Look at the full commit.
 git log
 #Notice also our head pointer is pointing to main which is just a reference to a commit hash
 
+
+-------------------------------------------------------------------------------------------
 #look at the type
 git cat-file -t <first 7 of the hash shown for the commit>
 #look at the content
@@ -78,6 +83,10 @@ git cat-file -p <first 5 of the hash shown for the tree in commit file>
 git cat-file -t <first n of the hash shown for the blob in tree file>
 #look at the content. Notice here it points the blob we saw created before and now has a file name
 git cat-file -p <first 5 of the hash shown for the blob in tree file>
+-------------------------------------------------------------------------------------------
+
+
+
 
 #Lets prove a point about it only storing unique content
 Copy-Item .\testfile.txt .\testfile2.txt
@@ -97,12 +106,19 @@ git cat-file -p <new tree pointed from new commit>
 git init --initial-branch=main
 git init -b main
 
-#WB06
+
+
+
+
+
 #Modify a file and stage
+-------------------------------------------------------------------------------------------
 code .\testfile.txt
 git add testfile.txt
 git status
+
 #add a 3rd file but don't stage
+-------------------------------------------------------------------------------------------
 code .\testfile3.txt
 git status
 
@@ -112,14 +128,23 @@ git status
 
 gitgraph
 
+
+
+
 #We can look at the changes
+-------------------------------------------------------------------------------------------
 git log -p #also shows the diff/patch between the commits :q
 
 gitgraph
 git diff <commit>..<commit> #diff between specific commits
 #Remember the complete snapshot is stored. All diffs are generated at time of command execution
+-------------------------------------------------------------------------------------------
+
+
+
 
 #WB07
+-------------------------------------------------------------------------------------------
 git status
 git add testfile3.txt
 code testfile.txt #make a change
@@ -130,9 +155,13 @@ git diff --cached
 git diff
 #Between working and the last commit (i.e. head)
 git diff HEAD #basically the sum of the above two
+-------------------------------------------------------------------------------------------
+
+
 
 
 #To remove content WB08
+-------------------------------------------------------------------------------------------
 #stage the removal (which will also delete from working)
 git rm <file>
 #to ONLY stage the remove (but not delete from working)
