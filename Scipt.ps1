@@ -37,17 +37,17 @@ git pull
 git push -u origin main
 #If remote added, simply?
 git push
--------------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------------------
 
 #Function for nice git log command in Powershell
 function gitgraph {git log --oneline --graph --decorate --all}
--------------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------------------
 
 
 
 
 
--------------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------------------
 #Pay attention to the current .git folder content, especially the objects folder
 git add .
 #Notice we now have a new object in a 2 character folder name with 38 character name, i.e. 40 character hash
@@ -60,7 +60,7 @@ git commit -m "Initial testfile.txt commit"
 git commit -am "Initial testfile.txt commit"
 #or even
 git commit -a -m "Initial testfile.txt commit"
--------------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------------------
 
 
 #Look at the full commit.
@@ -68,7 +68,7 @@ git log
 #Notice also our head pointer is pointing to main which is just a reference to a commit hash
 
 
--------------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------------------
 #look at the type
 git cat-file -t <first 7 of the hash shown for the commit>
 #look at the content
@@ -83,7 +83,7 @@ git cat-file -p <first 5 of the hash shown for the tree in commit file>
 git cat-file -t <first n of the hash shown for the blob in tree file>
 #look at the content. Notice here it points the blob we saw created before and now has a file name
 git cat-file -p <first 5 of the hash shown for the blob in tree file>
--------------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------------------
 
 
 
@@ -112,13 +112,13 @@ git init -b main
 
 
 #Modify a file and stage
--------------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------------------
 code .\testfile.txt
 git add testfile.txt
 git status
 
 #add a 3rd file but don't stage
--------------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------------------
 code .\testfile3.txt
 git status
 
@@ -132,19 +132,19 @@ gitgraph
 
 
 #We can look at the changes
--------------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------------------
 git log -p #also shows the diff/patch between the commits :q
 
 gitgraph
 git diff <commit>..<commit> #diff between specific commits
 #Remember the complete snapshot is stored. All diffs are generated at time of command execution
--------------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------------------
 
 
 
 
 #WB07
--------------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------------------
 git status
 git add testfile3.txt
 code testfile.txt #make a change
@@ -155,13 +155,13 @@ git diff --cached
 git diff
 #Between working and the last commit (i.e. head)
 git diff HEAD #basically the sum of the above two
--------------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------------------
 
 
 
 
 #To remove content WB08
--------------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------------------
 #stage the removal (which will also delete from working)
 git rm <file>
 #to ONLY stage the remove (but not delete from working)
@@ -184,7 +184,7 @@ git commit -m "removed testfile4.txt"
 
 
 #Resetting WB09
-------------------------------------------------------------------------------------------------------------------
+#------------------------------------------------------------------------------------------------------------------
 #Remove all staged content. After gitt add . is done.
 #It does this by setting staged to match the last commit
 #It does NOT change your working dir
@@ -219,7 +219,7 @@ gitgraph
 #Remember, a branch is just a pointer to a commit which points to its parent
 #We can just move the pointer backwards!
 #Move back 1 but do not change staging or working. Could go back 2, 3 etc ~2, ~3
-------------------------------------------------------------------------------------------------------------------
+#------------------------------------------------------------------------------------------------------------------
 git reset HEAD~1 --soft
 gitgraph
 #Notice we have moved back but did not change staging or working
@@ -250,7 +250,7 @@ git status
 #The now unreferenced commit will eventually be garbage collected
 
 #TAGS
-------------------------------------------------------------------------------------------------------------------
+#------------------------------------------------------------------------------------------------------------------
 gitgraph
 #remember commits just form a chain as they point to their parent.
 #Notice I'm using HEAD which just points to a reference which points to a commit!
@@ -280,7 +280,7 @@ git push --tag
 
 
 #Create an empty repo on GitHub under your account called gitplay1
-------------------------------------------------------------------------------------------------------------------
+#------------------------------------------------------------------------------------------------------------------
 #It has help about next steps
 
 #Add it as the remote origin. Origin is just a name but common standard
@@ -330,7 +330,7 @@ gitgraph
 
 
 #WB14
-------------------------------------------------------------------------------------------------------------------
+#------------------------------------------------------------------------------------------------------------------
 #Likewise if we change locally we need to push to the remote
 #As a best practice pull first (fetch and merge) to ensure all clean
 git pull
@@ -344,7 +344,7 @@ git push
 
 
 #Branches!
--------------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------------------
 #Start fresh
 cd ..
 mkdir repo2
@@ -445,7 +445,7 @@ git push origin --delete branch1
 #You may not want fast-forward. Maybe in the history you want to see it was a separate branch that got merged in
 #I am now going to mess around with time. Remember a branch is nothing more than a pointer to a commit
 #I can go backwards. In this case I'm going to move main BACK to before I made the last two changes
-------------------------------------------------------------------------------------------------------------------
+#------------------------------------------------------------------------------------------------------------------
 gitgraph
 #Remember --hard also updates staging and working
 git reset --hard HEAD~2
@@ -486,7 +486,7 @@ gitgraph
 
 #WB18
 #Lets make it more complicated
-------------------------------------------------------------------------------------------------------------------
+#------------------------------------------------------------------------------------------------------------------
 #Rewind time again (only doing this so our view is simpler)
 #Note using ^ instead of ~. This is because NOW main has two parents.
 #I'm saying go back to the first parent instead of ~ for number of generations
