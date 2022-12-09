@@ -87,6 +87,8 @@ code .\textfile3.txt
 git add textfile3.txt
 git status
 
+git commit -m "Edited Text file, added File3"
+
 gitgraph
 
 #We can look at the changes
