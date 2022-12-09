@@ -87,7 +87,7 @@ code .\textfile3.txt
 git add textfile3.txt
 git status
 
-git commit -m "Edited Text file, added File3"
+git commit -m "Edited text file, add 3rd file"
 
 gitgraph
 
@@ -113,35 +113,47 @@ ls #its gone from stage AND my working
 git commit -m "removed testfile4.txt"
 
 
-#Resetting 
+
+#Reset file to original after modifications have been done do it.
+code textfile.txt
+git status
+git restore textfile.txt
+git status
+
+
+#Resetting Folder after git add. Removing all staged content. (Edited file or files, but did not wanted to do that)
 #------------------------------------------------------------------------------------------------------------------
-#Remove all staged content. After gitt add . is done.
-#It does this by setting staged to match the last commit
-#It does NOT change your working dir
-git reset
+code textfile.txt
+git add .
+git status #file is now staged
+git reset  #It does NOT change your working dir
+git status #file not staged anymore for commit, BUT CHANGE IS STILL THERE
 
-#Would also change your working directory to match!
+#git reset --hard would also change your working directory to match!
+code textfile.txt
+git add .
 git reset --hard 
+#-------------------------------------------------------------------------------------------
 
-#Can reset individual files
-code testfile.txt
-git add testfile.txt
+#Reset individual files after git add . (Edited file but did not wanted to do that)
+#-------------------------------------------------------------------------------------------
+code textfile.txt
+git add textfile.txt
 git status
 #Restore version in staged (from last commit HEAD) but NOT working
-git restore --staged testfile.txt
+git restore --staged textfile.txt
 git status
 #Restore working from stage
 #Status here is before git add . is done. 
 #any modifications before add can be cancelled with this comand.
-git restore testfile.txt
+git restore textfile.txt
 git status
-code testfile.txt
-#Restore to stage and working from last commit. Reset to original with one comand. After add . is done.
-git restore --staged --worktree testfile.txt
+#-------------------------------------------------------------------------------------------
 
 
-#WB10
+
 #What if we want to undo a commit?
+#-------------------------------------------------------------------------------------------
 #to view all
 git log
 gitgraph
