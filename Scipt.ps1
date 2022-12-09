@@ -3,26 +3,12 @@
 #Check version
 git --version
 
+--------------------------------------------------------------------------------------------
 #Turn any folder into a repo which creates a sub .git folder
 git init
+--------------------------------------------------------------------------------------------
 
-#Looking at remote (again more later on all of this!)
-git remote -v
-git remote show origin
-
-#Add remote origin
-git remote add origin https://github.com/raine2703/test3
-
-#Pull
-git pull https://github.com/raine2703/test3.git
-# Or if rmeote added, simply
-git pull
-#Push 
-git push -u origin main
-#Or Simply 
-git push
-
-
+--------------------------------------------------------------------------------------------
 #Set initial git configuration
 #Can replace --global with --local to set values for a specific repo if required
 git config --global --list    #care about username and email
@@ -36,9 +22,31 @@ git config --list
 #Many other settings https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup
 git config --global init.defaultBranch main #this is very common to use instead of master
 
+-------------------------------------------------------------------------------------------
 
-#push to existing github, first have to add remote origin, then push.
+
+
+-------------------------------------------------------------------------------------------
+#push to existing github, first have to add remote origin, then pull/push.
 git remote add origin https://github.com/raine2703/test3
+
+#Looking at remote (again more later on all of this!)
+git remote -v
+git remote show origin
+
+#Pull
+git pull https://github.com/raine2703/test3.git
+#If remote added, simply
+git pull
+
+#Push 
+git push -u origin main
+#If remote added, simply
+git push
+-------------------------------------------------------------------------------------------
+
+
+
 
 
 
