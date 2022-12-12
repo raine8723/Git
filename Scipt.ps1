@@ -268,7 +268,8 @@ git push
 #-------------------------------------------------------------------------------------------
 
 
-#Branches! 
+
+#Branches and merging them togeather! 
 #-------------------------------------------------------------------------------------------
 
 #Fast Forward - edit branch, then merge from main.
@@ -306,6 +307,7 @@ git merge branch1
 
 
 #Detailed example below:
+#-------------------------------------------------------------------------------------------
 cd ..
 mkdir repo2
 cd repo2
@@ -395,8 +397,6 @@ git push origin --delete branch1
 #-------------------------------------------------------------------------------------------
 
 
-
-#To push a branch to a remote?????
+#To push a branch to a remote
 #-------------------------------------------------------------------------------------------
-#The -u sets up tracking between local and remote branch. Allows argumentless git pull in future. Will do this later
 git push -u <remote repo, e.g. origin> <branch name>
