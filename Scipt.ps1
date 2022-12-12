@@ -41,12 +41,10 @@ git push
 
 #Function for nice git log command in Powershell
 function gitgraph {git log --oneline --graph --decorate --all}
-git reflog
-git log --reflog
-
 #-------------------------------------------------------------------------------------------
 
 
+#git add . and git commit
 #-------------------------------------------------------------------------------------------
 #Pay attention to the current .git folder content, especially the objects folder
 code textfile.txt
@@ -66,6 +64,8 @@ git commit -a -m "Initial testfile.txt commit"
 
 #Look at the full commit.
 git log
+git reflog
+git log --reflog
 #Notice also our head pointer is pointing to main which is just a reference to a commit hash
 
 
