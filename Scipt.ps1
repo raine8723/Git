@@ -46,14 +46,11 @@ function gitgraph {git log --oneline --graph --decorate --all}
 
 #git add . and git commit
 #-------------------------------------------------------------------------------------------
-#Pay attention to the current .git folder content, especially the objects folder
 code textfile.txt
 git add .
-#Notice we now have a new object in a 2 character folder name with 38 character name, i.e. 40 character hash
 git status
 git diff --cached #Difference between staged and what is commited
 git commit -m "Initial textfile.txt commit"
-#We have two new objects created! The path and the commit itself
 
 #NOTE Could combine the add and commit
 git commit -am "Initial testfile.txt commit"
@@ -77,7 +74,6 @@ git add .
 git status
 git commit -m "textfile2.txt added"
 #We have new files. Look again
-
 
 #Modify a file and stage
 #-------------------------------------------------------------------------------------------
@@ -114,7 +110,6 @@ git rm testfile4.txt
 git status #Note the delete is staged
 ls #its gone from stage AND my working
 git commit -m "removed testfile4.txt"
-
 
 
 #Reset file to original after modifications have been done do it.
@@ -208,7 +203,6 @@ git push --tag
 #------------------------------------------------------------------------------------------------------------------
 
 
-
 #Remote Origins (Push, Pull = Fetch + Merge) explained
 #------------------------------------------------------------------------------------------------------------------
 git remote add origin https://github.com/raine2703/gitplay2.git
@@ -268,7 +262,6 @@ git push
 #-------------------------------------------------------------------------------------------
 
 
-
 #Branches and merging them togeather! 
 #-------------------------------------------------------------------------------------------
 
@@ -303,7 +296,6 @@ git rebase --continue
 gitgraph
 git switch main
 git merge branch1
-
 
 
 #Detailed example below:
