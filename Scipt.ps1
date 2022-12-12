@@ -1,13 +1,13 @@
 
 
 #John Savill DevOps Master Class - Master Git
-#--------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------
 #Check version
 git --version
 #--------------------------------------------------------------------------------------------
 #Turn any folder into a repo which creates a sub .git folder
 git init
-#--------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------
 #Set initial git configuration
 #Can replace --global with --local to set values for a specific repo if required
 git config --global --list    #care about username and email
@@ -20,7 +20,8 @@ git config --list
 
 #Many other settings https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup
 git config --global init.defaultBranch main #this is very common to use instead of master#
-#-------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
+
 #push to existing github, first have to add remote origin, then pull/push.
 git remote add origin https://github.com/raine2703/gitplay.git
 
@@ -41,22 +42,23 @@ git push
 
 #Function for nice git log command in Powershell
 function gitgraph {git log --oneline --graph --decorate --all}
-#-------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
 
 
 #git add . and git commit
-#-------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
 code textfile.txt
 git add .
 git status
 git diff --cached #Difference between staged and what is commited
 git commit -m "Initial textfile.txt commit"
 
+
 #NOTE Could combine the add and commit
 git commit -am "Initial testfile.txt commit"
 #or even
 git commit -a -m "Initial testfile.txt commit"
-#-------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
 
 
 #Look at the full commit.
@@ -66,7 +68,7 @@ git log --reflog
 #Notice also our head pointer is pointing to main which is just a reference to a commit hash
 
 
-#-------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
 #Lets prove a point about it only storing unique content
 Copy-Item .\textfile.txt .\textfile2.txt
 git add .
@@ -75,11 +77,13 @@ git status
 git commit -m "textfile2.txt added"
 #We have new files. Look again
 
+
 #Modify a file and stage
-#-------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
 code .\textfile.txt
 git add textfile.txt
 git status
+
 
 #add a 3rd file 
 code .\textfile3.txt
@@ -90,18 +94,19 @@ git commit -m "Edited text file, add 3rd file"
 
 gitgraph
 
+
 #We can look at the changes
-#-------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
 git log -p #also shows the diff/patch between the commits :q
 
 gitgraph
 git diff <commit>..<commit> #diff between specific commits
 #Remember the complete snapshot is stored. All diffs are generated at time of command execution
-#-------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
 
 
 #Removing content 
-#-------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
 code testfile4.txt
 git add testfile4.txt
 git commit -m "adding testfile4.txt"
@@ -113,7 +118,7 @@ git commit -m "removed testfile4.txt"
 
 
 #Reset file to original after modifications have been done do it.
-#-------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
 code textfile.txt
 git status
 git restore textfile.txt
@@ -121,7 +126,7 @@ git status
 
 
 #Resetting Folder after git add. Removing all staged content. (Edited file or files, but did not wanted to do that)
-#------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------
 code textfile.txt
 git add .
 git status #file is now staged
@@ -132,10 +137,10 @@ git status #file not staged anymore for commit, BUT CHANGE IS STILL THERE
 code textfile.txt
 git add .
 git reset --hard 
-#-------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
 
 #Reset individual files after git add . (Edited file but did not wanted to do that)
-#-------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
 code textfile.txt
 git add textfile.txt
 git status
@@ -147,11 +152,11 @@ git status
 #any modifications before add can be cancelled with this comand.
 git restore textfile.txt
 git status
-#-------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
 
 
 #Undo a commit
-#-------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
 git reset HEAD~1 --hard #all in one go
 
 #list all previous versions, also the ones tha in "future".
@@ -182,7 +187,7 @@ git status
 #Now clean
 
 git reset HEAD~1 --hard #all in one go, 1 step backgit
-#-------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
 
 
 
@@ -200,11 +205,11 @@ git show v1.0.0
 
 #Note tags have to be pushed to a remote origin for them to be visible there. We will cover later
 git push --tag
-#------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------
 
 
 #Remote Origins (Push, Pull = Fetch + Merge) explained
-#------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------
 git remote add origin https://github.com/raine2703/gitplay2.git
 git remote remove origin
 
@@ -245,11 +250,11 @@ git status
 git merge
 #fast forward again
 gitgraph
-#-------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
 
 
 #Example: Pull, make a change locally, then push!
-#-------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
 #As a best practice pull first (fetch and merge) to ensure all clean
 git pull
 code textfile.txt
@@ -259,11 +264,11 @@ git status
 gitgraph
 git push
 #git push --tags
-#-------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
 
 
 #Branches and merging them togeather! 
-#-------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
 
 #Fast Forward - edit branch, then merge from main.
 #3 way merge - edit branch, edit main, then merge from main. Have to fix errors and commit again.
@@ -299,7 +304,7 @@ git merge branch1
 
 
 #Detailed example below:
-#-------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
 cd ..
 mkdir repo2
 cd repo2
@@ -365,7 +370,7 @@ gitgraph
 #the branch1 is now 2 ahead but its a straight line from the main
 
 #Merge Branches
-#-------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
 git status
 #Move to main
 git switch main
@@ -379,16 +384,16 @@ git branch --merged
 gitgraph
 
 #Delete Branches
-#-------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
 #This would only delete locally
 #Remember to ALWAYS check it has been merged first before deleting
 git branch --merged
 git branch -d branch1
 #To delete on a remote
 git push origin --delete branch1
-#-------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
 
 
 #To push a branch to a remote
-#-------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
 git push -u <remote repo, e.g. origin> <branch name>
