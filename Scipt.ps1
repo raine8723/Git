@@ -1,14 +1,18 @@
 
 
 #John Savill DevOps Master Class - Master Git
---------------------------------------------------------------------------------------------
+
+
 #Check version
+--------------------------------------------------------------------------------------------
 git --version
---------------------------------------------------------------------------------------------
+
 #Turn any folder into a repo which creates a sub .git folder
-git init
 --------------------------------------------------------------------------------------------
+git init
+
 #Set initial git configuration
+--------------------------------------------------------------------------------------------
 #Can replace --global with --local to set values for a specific repo if required
 git config --global --list    #care about username and email
 
@@ -40,9 +44,10 @@ git push -u origin main
 git push
 #-------------------------------------------------------------------------------------------
 
+
 #Function for nice git log command in Powershell
-function gitgraph {git log --oneline --graph --decorate --all}
 -------------------------------------------------------------------------------------------
+function gitgraph {git log --oneline --graph --decorate --all}
 
 
 #git add . and git commit
@@ -69,8 +74,8 @@ git log --reflog
 #Notice also our head pointer is pointing to main which is just a reference to a commit hash
 
 
--------------------------------------------------------------------------------------------
 #Lets prove a point about it only storing unique content
+-------------------------------------------------------------------------------------------
 Copy-Item .\textfile.txt .\textfile2.txt
 git add .
 #what new object do we have? Nothing.
