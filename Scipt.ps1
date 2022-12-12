@@ -1,6 +1,6 @@
 
 
-#John Savill DevOps Master Class - Master Git
+#John Savill DevOps Master Class - Master Gis
 
 
 #Check version
