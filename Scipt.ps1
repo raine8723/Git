@@ -22,7 +22,7 @@ git config --list
 git config --global init.defaultBranch main #this is very common to use instead of master#
 #-------------------------------------------------------------------------------------------
 #push to existing github, first have to add remote origin, then pull/push.
-git remote add origin https://github.com/raine2703/test3
+git remote add origin https://github.com/raine2703/gitplay.git
 
 #Looking at remote (again more later on all of this!)
 git remote -v
@@ -41,6 +41,9 @@ git push
 
 #Function for nice git log command in Powershell
 function gitgraph {git log --oneline --graph --decorate --all}
+git reflog
+git log --reflog
+
 #-------------------------------------------------------------------------------------------
 
 
@@ -152,27 +155,25 @@ git status
 #-------------------------------------------------------------------------------------------
 
 
-############################ CONTINUE TO SUMMARIZE HERE ###################################
-
-
-#What if we want to undo a commit?
+#Undo a commit
 #-------------------------------------------------------------------------------------------
-#to view all
-git log
-gitgraph
+git reset HEAD~1 --hard #all in one go
 
-#Remember, a branch is just a pointer to a commit which points to its parent
-#We can just move the pointer backwards!
+#list all previous versions, also the ones tha in "future".
+git log --reflog
+
+#Could also reset by a specific commit ID
+git reset <first x characters of commit> --soft
+git reset 3e5c944 --hard #all in one go  
+
+#Step by step explained bellow:
+#Remember, a branch is just a pointer to a commit which points to its parent. #We can just move the pointer backwards!
 #Move back 1 but do not change staging or working. Could go back 2, 3 etc ~2, ~3
-#------------------------------------------------------------------------------------------------------------------
 git reset HEAD~1 --soft
 gitgraph
 #Notice we have moved back but did not change staging or working
 git status
 #So staging still has the change that was part of the last commit that is no longer referenced
-
-#Could also reset by a specific commit ID
-git reset <first x characters of commit> --soft
 
 #to also reset staging. Note as I'm not specifying a commit its resetting working to the current commit which i've rolled back already
 #--mixed is actually the default, i.e. same as git reset which we did before to reset staging!
@@ -185,27 +186,16 @@ git reset --hard
 git status
 #Now clean
 
-#Could do all in one go
-gitgraph
-git reset HEAD~1 --hard
-gitgraph
-git status
-#all clean since --hard reset all levels back
+git reset HEAD~1 --hard #all in one go, 1 step backgit
+#-------------------------------------------------------------------------------------------
 
-#The now unreferenced commit will eventually be garbage collected
+
 
 #TAGS
 #------------------------------------------------------------------------------------------------------------------
-gitgraph
-#remember commits just form a chain as they point to their parent.
-#Notice I'm using HEAD which just points to a reference which points to a commit!
-git cat-file -t HEAD
-git cat-file -p HEAD
-
-#I can create a tag at the current location
 git tag v1.0.0
 gitgraph
-git tag v0.5.1 46d8095
+git tag v0.5.1 09f24f4
 gitgraph
 git tag --list
 
@@ -213,25 +203,16 @@ git tag --list
 git show v1.0.0
 #We just see the commit object
 
-#These are lightweight tags. There is also an annotated type which is a full object with its own message
-git tag -a v0.0.1 46d8095 -m "First version"
-git show v0.0.1
-#we see the TAG information AND then the commit it references
-git cat-file -t v0.0.1
-git cat-file -t v1.0.0
-
 #Note tags have to be pushed to a remote origin for them to be visible there. We will cover later
 git push --tag
-
-
-#Create an empty repo on GitHub under your account called gitplay1
 #------------------------------------------------------------------------------------------------------------------
-#It has help about next steps
 
-#Add it as the remote origin. Origin is just a name but common standard
-git remote add origin https://github.com/raine2703/gitplay.git
+
+
+#Remote Origins (Push, Pull = Fetch + Merge) explained
+#------------------------------------------------------------------------------------------------------------------
+git remote add origin https://github.com/raine2703/gitplay2.git
 git remote remove origin
-#git branch -M main      # RENAMES the branch from master to main
 
 git remote -v
 gitgraph
@@ -263,8 +244,6 @@ gitgraph
 #git pull actually is doing two things
 #To just get remote content, this shows if there has been a change remotely
 git fetch
-
-git cat-file -p origin/main
 #Content is now on our box, just not "merged"
 gitgraph
 git status
@@ -272,25 +251,61 @@ git status
 git merge
 #fast forward again
 gitgraph
+#-------------------------------------------------------------------------------------------
 
 
-#WB14
-#------------------------------------------------------------------------------------------------------------------
-#Likewise if we change locally we need to push to the remote
+#Example: Pull, make a change locally, then push!
+#-------------------------------------------------------------------------------------------
 #As a best practice pull first (fetch and merge) to ensure all clean
 git pull
-#make a change
-code testfile.txt
-git commit -am "Updated testfile.txt"
+code textfile.txt
+git add .
+git commit -am "Updated testfile.txt x3"
 git status
 gitgraph
 git push
 #git push --tags
-
-
-#Branches!
 #-------------------------------------------------------------------------------------------
-#Start fresh
+
+
+#Branches! 
+#-------------------------------------------------------------------------------------------
+
+#Fast Forward - edit branch, then merge from main.
+#3 way merge - edit branch, edit main, then merge from main. Have to fix errors and commit again.
+#Rebase. Edit main, edit branch. Rebase branch with main so its easier to merge later from main.
+
+#summary:
+git branch branch1
+git branch --list #* shows where you are
+git switch branch1
+git add .
+git commit -m "Main edit"
+git switch main
+git merge branch1 # this is fast forward.
+gitgraph
+git branch -d branch1 #no longer needed
+
+
+#You may not want fast-forward. Maybe in the history you want to see it was a separate branch that got merged in
+git merge --no-ff branch1 # will show that there was branch
+
+# Rebase - merge branch with main so later on its easier to merge main with branch.
+# Firstly Edit main, THen Edit Branch, Then Rebase branch from main, then merge main with branch.
+git add .
+git commit -m "Edit branch"
+git switch branch1
+git status
+git rebase main
+git add .
+git rebase --continue
+gitgraph
+git switch main
+git merge branch1
+
+
+
+#Detailed example below:
 cd ..
 mkdir repo2
 cd repo2
@@ -298,10 +313,10 @@ git init
 git status
 #we see main which remember just references a commit (that won't exist yet)
 
-code jl.csv
-git add jl.csv
-git commit -m "Initial JL roster CSV"
-#WB-15black (down)
+code textfile.txt
+git add textfile.txt
+git commit -m "Initial commit"
+gitgraph
 
 #View all branches. * is current
 git branch --list
@@ -310,13 +325,11 @@ git branch -r
 #View all (local and remote)
 git branch -a
 
-#WB15-orange
 #Create a new branch pointing to where we are called branch1
 git branch branch1
 gitgraph
 #Notice point to same commit at this time
 
-#WB15-red
 git branch --list
 git checkout branch1
 #or better move to new switch that is based around movement to separate commands
@@ -329,43 +342,36 @@ gitgraph
 #To create and checkout in one step:
 git checkout -c branch1
 
-#To push a branch to a remote.
-#The -u sets up tracking between local and remote branch. Allows argumentless git pull in future. Will do this later
-git push -u <remote repo, e.g. origin> <branch name>
-
 #Check which branch we are on
 git branch
 
-#WB16
-#Make a change to jl.csv adding Diana
-code jl.csv
-git add -p
-#Yep the above shows the actual changed chunks and can select parts! Now commit
-git commit -m "Added Wonder Woman"
+#Make a change to jl.csv adding some text. ON BRANCH ONE
+code .\textfile.txt
+git add .
+git commit -m "Added Second line"
 gitgraph
 #Notice the branch is now ahead of main
-#Make another change adding Barry
-code jl.csv
+#Make another change
+code .\textfile.txt
 git add .
-git commit -m "Added The Flash"
+git commit -m "Added third line"
 gitgraph
-git status
 #all clean
 
+#switch between branches and check results
 git switch main
-type jl.csv
+type .\textfile.txt
 git status
 git switch branch1
-type jl.csv
+type .\textfile.txt
 git status
 #Notice as I switch it does that update of not only the branch but gets the stage and working to same state
 
 gitgraph
 #the branch1 is now 2 ahead but its a straight line from the main
 
-#WB16b
-#Now we want to merge the changes into main
-#Make sure everything clean
+#Merge Branches
+#-------------------------------------------------------------------------------------------
 git status
 #Move to main
 git switch main
@@ -378,104 +384,19 @@ git branch --merged
 
 gitgraph
 
-#We no longer need branch1. Remember use tags if you want some long lived reference
+#Delete Branches
+#-------------------------------------------------------------------------------------------
 #This would only delete locally
 #Remember to ALWAYS check it has been merged first before deleting
 git branch --merged
 git branch -d branch1
 #To delete on a remote
 git push origin --delete branch1
+#-------------------------------------------------------------------------------------------
 
 
-#You may not want fast-forward. Maybe in the history you want to see it was a separate branch that got merged in
-#I am now going to mess around with time. Remember a branch is nothing more than a pointer to a commit
-#I can go backwards. In this case I'm going to move main BACK to before I made the last two changes
-#------------------------------------------------------------------------------------------------------------------
-gitgraph
-#Remember --hard also updates staging and working
-git reset --hard HEAD~2
-gitgraph
-#The other two commits are still out there but nothing references them. They will eventually get cleaned up
-#We can look and still see via the reference logs
-git reflog
 
-#Lets do it all again
-#WB17
-git branch branch1
-git switch branch1
-code jl.csv
-git add .
-git commit -m "Added Test4"
-code jl.csv
-git add .
-git commit -m "Added Test5"
-gitgraph
-git status
-#looks familiar and all clean
-
-#This time specify NOT to perform a fast forward
-git switch main
-git diff main..branch1
-git merge --no-ff branch1
-git branch --merged
-
-gitgraph
-#Notice the merge was a new commit
-
-#We can still delete branch1 as its still merged
-git branch --merged
-git branch -d branch1
-#History is kept there was a branch
-gitgraph
-
-
-#WB18
-#Lets make it more complicated
-#------------------------------------------------------------------------------------------------------------------
-#Rewind time again (only doing this so our view is simpler)
-#Note using ^ instead of ~. This is because NOW main has two parents.
-#I'm saying go back to the first parent instead of ~ for number of generations
-git reset --hard HEAD^1
-gitgraph
-
-#Make the branch1 again with two commits
-git branch branch1
-git switch branch1
-code jl.csv
-git add .
-git commit -m "Added Wonder Woman"
-code jl.csv
-git add .
-git commit -m "Added The Flash"
-gitgraph
-git status
-
-#Switch to main
-git switch main
-code jl.csv
-git add .
-git commit -m "Added Cyborg"
-
-gitgraph
-#More interesting. There is now NOT a direct path from branch1 to main
-git status
-#We will have conflicts given the changes we made
-git merge branch1
-#We need to fix them by editing the file it tells us and conflicts have been marked
-code jl.csv
-#We are in conflict status:
-git status
-git add .
-git commit -m "Merged with branch1"
-
-gitgraph
-#Shows the 3-way merge is complete
-#Take a little screen shot of this and paste next to 3-way merge picture!
-
-git branch --merged
-#Could delete the branch now BUT I DON'T WANT TO
-#git branch -d branch1
-gitgraph
-
-
-#There is another option. Rebase??? Logic not clear.
+#To push a branch to a remote?????
+#-------------------------------------------------------------------------------------------
+#The -u sets up tracking between local and remote branch. Allows argumentless git pull in future. Will do this later
+git push -u <remote repo, e.g. origin> <branch name>
