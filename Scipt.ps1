@@ -404,3 +404,11 @@ git push origin --delete branch1
 #To push a branch to a remote
 -------------------------------------------------------------------------------------------
 git push -u <remote repo, e.g. origin> <branch name>
+
+
+
+
+
+
+
+
